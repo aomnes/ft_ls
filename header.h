@@ -19,6 +19,12 @@
 
 void erreur(const char *message);
 void ft_affiche_date(char *nom);
+void ft_affiche_size(int nombre, int max);
 void acl(char *filename);
+void ft_l(char *nom, int max);
+
+int ft_max_size(void);
+int compt_dir(void);
+void ft_sum_block(void);
 
 #endif //HEADER_H
