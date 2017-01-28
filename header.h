@@ -14,7 +14,11 @@
 #include <uuid/uuid.h>
 #include <sys/xattr.h>
 
+#include <sys/types.h>
+#include <sys/acl.h> //ACL
+
 void erreur(const char *message);
 void ft_affiche_date(char *nom);
+void acl(char *filename);
 
 #endif //HEADER_H

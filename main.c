@@ -54,7 +54,7 @@ char **affiche_dir(char **nom_f_d)
     return (nom_f_d);
 }
 
-void ft_sum_block(void)
+void ft_sum_block(void)//attention fichier cache ne pas prendre en compte dans tous les cas
 {
     struct stat fileStat;
     struct dirent *lecture;
@@ -87,7 +87,14 @@ void ft_l(char *nom)
     if(stat(nom, &fileStat) < 0)
         erreur(nom);
 
-    printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
+    printf( (S_ISFIFO(fileStat.st_mode)) ? "p" : "");
+    printf( (S_ISCHR(fileStat.st_mode)) ? "c" : "");
+    printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "");
+    printf( (S_ISBLK(fileStat.st_mode)) ? "b" : "");
+    printf( (S_ISREG(fileStat.st_mode)) ? "-" : "");
+    printf( (S_ISLNK(fileStat.st_mode)) ? "l" : "");
+    printf( (S_ISSOCK(fileStat.st_mode)) ? "s" : "");
+    printf( (S_ISWHT(fileStat.st_mode)) ? "w" : "");
     printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
     printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
@@ -97,17 +104,18 @@ void ft_l(char *nom)
     printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
     printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
+    acl(nom);
 
-    printf(" %d",fileStat.st_nlink);
+    printf("\t%d",fileStat.st_nlink);
     user = getpwuid(fileStat.st_uid);
-    printf("  %s", user->pw_name);
+    printf("\t%s", user->pw_name);
     groupe = getgrgid(fileStat.st_gid);
-    printf(" %s", groupe->gr_name);
-    printf(" %lld", fileStat.st_size);
-    printf(" %s", ctime(&fileStat.st_birthtimespec.tv_sec));
-    printf(" %s\n", nom);
+    printf("\t%s", groupe->gr_name);
+    printf("\t%lld", fileStat.st_size);
+    ft_affiche_date(nom);
+    printf("\t%s\n", nom);
 
-    printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
+//    printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
 }
 
 int main()
@@ -116,18 +124,17 @@ int main()
     int nb_val;
 
     nb_val = compt_dir();
-    printf("nb: %d\n", nb_val);
+//    printf("nb: %d\n", nb_val);
     nom_f_d = (char**)malloc(sizeof(char) * nb_val);
     nom_f_d = affiche_dir(nom_f_d);
-    printf("%s\n",nom_f_d[0]);
-    printf("%s\n",nom_f_d[1]);
-    printf("%s\n",nom_f_d[2]);
-    printf("%s\n",nom_f_d[3]);
-    printf("%s\n\n",nom_f_d[4]);
 
     ft_sum_block();
+    ft_l(".");
+    ft_l("..");
     ft_l(nom_f_d[0]);
-//    ft_affiche_date(nom_f_d[4]);
+    ft_l(nom_f_d[1]);
+    ft_l(nom_f_d[2]);
+    ft_l(nom_f_d[3]);
     free(nom_f_d);
     return (0);
 }

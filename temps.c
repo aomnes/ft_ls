@@ -9,11 +9,8 @@ static void ft_jours(char *nom)
     if(stat(nom, &fileStat) < 0)
         erreur(nom);
     strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
-//  printf("jours: le temps :::%s\n", temps);
-
     strncpy(jour, &temps[8], 2);
-
-    printf("%s\n", jour);
+    printf("\t%s", jour);
 }
 
 static void ft_mois(char *nom)
@@ -25,28 +22,22 @@ static void ft_mois(char *nom)
     if(stat(nom, &fileStat) < 0)
         erreur(nom);
     strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
-//  printf("mois: le temps :::%s\n", temps);
-
     strncpy(mois, &temps[4], 3);
     mois[0] = temps[4] + 32;
-
-    printf("%s\n", mois);
+    printf("\t%s", mois);
 }
 
 static void ft_heure(char *nom)
 {
     struct stat fileStat;
     char temps[100];
-    char heure[8];
+    char heure[5];
 
     if(stat(nom, &fileStat) < 0)
         erreur(nom);
     strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
-//  printf("heure: le temps :::%s\n", temps);
-
     strncpy(heure, &temps[11], 5);
-
-    printf("%s\n", heure);
+    printf("\t%s", heure);
 }
 
 static void ft_annee(char *nom)
@@ -58,17 +49,30 @@ static void ft_annee(char *nom)
     if(stat(nom, &fileStat) < 0)
         erreur(nom);
     strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
-//  printf("annee: le temps :::%s\n", temps);
-
     strncpy(annee, &temps[20], 4);
+    printf("\t%s", annee);
+}
 
-    printf("%s\n", annee);
+static void ft_annee_or_date(char *nom)
+{
+    struct stat fileStat;
+    long long diff;
+    long long six_mois_sec;
+
+    six_mois_sec = 15778800;
+    if(stat(nom, &fileStat) < 0)
+        erreur(nom);
+
+    diff = time(NULL) - fileStat.st_birthtimespec.tv_sec;
+    if (diff >= six_mois_sec)
+        ft_annee(nom);
+    else
+        ft_heure(nom);
 }
 
 void ft_affiche_date(char *nom)
 {
-    ft_annee(nom);
     ft_jours(nom);
-    ft_heure(nom);
     ft_mois(nom);
+    ft_annee_or_date(nom);
 }
