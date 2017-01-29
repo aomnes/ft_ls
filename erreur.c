@@ -3,7 +3,7 @@
 void erreur(const char *message)
 {
     perror(message);
-    exit(0);
+    exit(1);
 }
 
 void erreur_arg(char c)
