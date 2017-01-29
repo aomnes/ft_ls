@@ -70,3 +70,30 @@ int ft_max_size(void)
 //    printf("%d", max);
     return (max);
 }
+
+int ft_max_nlink(void)
+{
+    struct stat fileStat;
+    struct dirent *lecture;
+    DIR *rep;
+    int max;
+    char val[15];
+
+    max = 0;
+    rep = opendir(".");
+    if (rep == NULL)
+        erreur("opendir");
+    while ((lecture = readdir(rep)))
+    {
+        if(stat(lecture->d_name, &fileStat) < 0)
+            erreur(lecture->d_name);
+        sprintf(val, "%hu", fileStat.st_nlink);//remplacer par atoa()
+//        printf("vallllll: %s\n", val);
+        if (max < (int)strlen(val))
+            max = strlen(val);
+    }
+    if (closedir(rep) == -1)
+        erreur("closedir");
+//    printf("maaaaaaaxxxxxxxx: %d\n", max);
+    return (max);
+}

@@ -1,6 +1,6 @@
 #include "header.h"
 
-void ft_l(char *nom, int max)
+void ft_l(char *nom, int max, int max_nlink)
 {
     struct stat fileStat;
     struct passwd *user;
@@ -27,14 +27,13 @@ void ft_l(char *nom, int max)
     printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
     acl(nom);
-
-    printf(" %d ",fileStat.st_nlink);
+    printf(" ");
+    ft_affiche_nlink(fileStat.st_nlink, max_nlink);
     user = getpwuid(fileStat.st_uid);
-    printf("%s ", user->pw_name);
+    printf(" %s ", user->pw_name);
     groupe = getgrgid(fileStat.st_gid);
-    printf("%s  ", groupe->gr_name);
+    printf(" %s  ", groupe->gr_name);
     ft_affiche_size(fileStat.st_size, max);
-//    printf("  %lld ", fileStat.st_size);
     ft_affiche_date(nom);
     printf(" %s\n", nom);
 
@@ -61,5 +60,29 @@ void ft_affiche_size(int nombre, int max)
             diff--;
         }
     }
+    free(valeur);
     printf("%d", nombre);
+}
+
+void ft_affiche_nlink(int nombre, int max)
+{
+    char *valeur;
+    int taille;
+    int diff;
+
+    valeur = (char*)malloc(sizeof(valeur) * (max + 1));
+    valeur[max] = '\0';
+    sprintf(valeur, "%d", nombre);//remplacer par atoa()
+    taille = strlen(valeur);
+    diff = max - taille;
+    if (diff > 0)
+    {
+        while (diff > 0)
+        {
+            printf(" ");
+            diff--;
+        }
+    }
+    printf("%d", nombre);
+    free(valeur);
 }

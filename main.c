@@ -32,7 +32,9 @@ int main(void)
     char **nom_f_d;
     int nb_val;
     int index;
-    int max;
+    int max_size;
+    int max_nlink;
+
 
     index = 0;
     nb_val = compt_dir();
@@ -40,13 +42,14 @@ int main(void)
     nom_f_d = (char**)malloc(sizeof(char) * nb_val);
     nom_f_d = affiche_dir(nom_f_d);
 
-    max = ft_max_size();
+    max_size = ft_max_size();
+    max_nlink = ft_max_nlink();
     ft_sum_block();
-    ft_l(".", max);
-    ft_l("..", max);
+    ft_l(".", max_size, max_nlink);
+    ft_l("..", max_size, max_nlink);
     while (index != nb_val)
     {
-        ft_l(nom_f_d[index], max);
+        ft_l(nom_f_d[index], max_size, max_nlink);
         index++;
     }
     free(nom_f_d);
