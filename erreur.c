@@ -9,6 +9,6 @@ void erreur(const char *message)
 void erreur_arg(char c)
 {
     printf("ls: illegal option -- %c\n", c);
-    printf("usage: ls [-...] [file ...]");
+    printf("usage: ls [-lRart] [file ...]");
     exit(1);
 }
