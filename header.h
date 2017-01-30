@@ -30,5 +30,6 @@ int ft_max_size(void);
 int ft_max_nlink(void);
 int compt_dir(void);
 void ft_sum_block(void);
+int	ft_strcmp(const char *s1, const char *s2);
 
 #endif //HEADER_H

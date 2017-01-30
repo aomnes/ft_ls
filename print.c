@@ -5,9 +5,9 @@ void ft_l(char *nom, int max, int max_nlink)
     struct stat fileStat;
     struct passwd *user;
     struct group *groupe;
-
+//    printf("====> %s\n", nom);
     if(stat(nom, &fileStat) < 0)
-        erreur(nom);
+        erreur("\nstat ft....l");
 
     printf( (S_ISFIFO(fileStat.st_mode)) ? "p" : "");
     printf( (S_ISCHR(fileStat.st_mode)) ? "c" : "");
