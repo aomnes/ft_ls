@@ -8,7 +8,7 @@ static void ft_jours(char *nom)
 
     if(stat(nom, &fileStat) < 0)
         erreur("jour");
-    strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
+    strcpy(temps, ctime(&fileStat.st_mtimespec.tv_sec));
     strncpy(jour, &temps[8], 2);
     printf(" %s", jour);
 }
@@ -21,7 +21,7 @@ static void ft_mois(char *nom)
 
     if(stat(nom, &fileStat) < 0)
         erreur("mois");
-    strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
+    strcpy(temps, ctime(&fileStat.st_mtimespec.tv_sec));
     strncpy(mois, &temps[4], 3);
     mois[0] = temps[4] + 32;
     printf(" %s", mois);
@@ -35,7 +35,7 @@ static void ft_heure(char *nom)
 
     if(stat(nom, &fileStat) < 0)
         erreur("heure");
-    strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
+    strcpy(temps, ctime(&fileStat.st_mtimespec.tv_sec));
     strncpy(heure, &temps[11], 5);
     printf(" %s", heure);
 }
@@ -48,7 +48,7 @@ static void ft_annee(char *nom)
 
     if(stat(nom, &fileStat) < 0)
         erreur("annee");
-    strcpy(temps, ctime(&fileStat.st_birthtimespec.tv_sec));
+    strcpy(temps, ctime(&fileStat.st_mtimespec.tv_sec));
     strncpy(annee, &temps[20], 4);
     printf(" %s", annee);
     printf(" ");//car un caractere de moins par rapport a date
@@ -64,7 +64,7 @@ static void ft_annee_or_date(char *nom)
     if(stat(nom, &fileStat) < 0)
         erreur("anne/date");
 
-    diff = time(NULL) - fileStat.st_birthtimespec.tv_sec;
+    diff = time(NULL) - fileStat.st_mtimespec.tv_sec;
     if (diff >= six_mois_sec)
         ft_annee(nom);
     else
