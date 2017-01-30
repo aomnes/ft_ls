@@ -5,10 +5,11 @@ void ft_l(char *nom, int max, int max_nlink)
     struct stat fileStat;
     struct passwd *user;
     struct group *groupe;
+    int max_user;
+    int max_groupe;
 //    printf("====> %s\n", nom);
     if(stat(nom, &fileStat) < 0)
         erreur("\nstat ft....l");
-
     printf( (S_ISFIFO(fileStat.st_mode)) ? "p" : "");
     printf( (S_ISCHR(fileStat.st_mode)) ? "c" : "");
     printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "");
@@ -27,12 +28,19 @@ void ft_l(char *nom, int max, int max_nlink)
     printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
     acl(nom);
+
     printf(" ");
+
     ft_affiche_nlink(fileStat.st_nlink, max_nlink);
+    max_user = ft_max_user();
     user = getpwuid(fileStat.st_uid);
-    printf(" %s ", user->pw_name);
+    printf(" ");
+    ft_affiche_user(user->pw_name, max_user);
+    max_groupe = ft_max_groupe();
     groupe = getgrgid(fileStat.st_gid);
-    printf(" %s  ", groupe->gr_name);
+    printf("  ");
+    ft_affiche_groupe(groupe->gr_name, max_groupe);
+    printf("  ");
     ft_affiche_size(fileStat.st_size, max);
     ft_affiche_date(nom);
     printf(" %s\n", nom);
@@ -85,4 +93,40 @@ void ft_affiche_nlink(int nombre, int max)
     }
     printf("%d", nombre);
     free(valeur);
+}
+
+void ft_affiche_user(char *user, int max)
+{
+    int taille;
+    int diff;
+
+    taille = strlen(user);
+    diff = max - taille;
+    printf("%s", user);
+    if (diff > 0)
+    {
+        while (diff > 0)
+        {
+            printf(" ");
+            diff--;
+        }
+    }
+}
+
+void ft_affiche_groupe(char *groupe, int max)
+{
+    int taille;
+    int diff;
+
+    taille = strlen(groupe);
+    diff = max - taille;
+    printf("%s", groupe);
+    if (diff > 0)
+    {
+        while (diff > 0)
+        {
+            printf(" ");
+            diff--;
+        }
+    }
 }

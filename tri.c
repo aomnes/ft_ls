@@ -17,6 +17,7 @@ int		ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
+/*
 char **tri(char **tab, int nb_val)
 {
 	char **tableau_trie;
@@ -26,7 +27,12 @@ char **tri(char **tab, int nb_val)
 	tableau_trie = (char**)malloc(sizeof(*tab) * nb_val);
 	if (!tableau_trie)
 		erreur("malloc tableau_trie");
+	while (index != nb_val)
+	{
+		if (isupper())
+	}
 
 
 
 }
+*/
