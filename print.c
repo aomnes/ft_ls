@@ -43,8 +43,6 @@ void ft_l(char *nom, int max, int max_nlink)
     printf("  ");
     ft_affiche_size(fileStat.st_size, max);
     ft_affiche_date(nom);
-    printf(" %s\n", nom);
-
 //    printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
 }
 

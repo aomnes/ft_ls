@@ -2,7 +2,7 @@ NAME = ls.out
 CC = gcc
 INCLUDE = header.h
 SRC = main.c compte.c print.c acl.c\
-      temps.c erreur.c tri.c
+      temps.c erreur.c tri.c argv.c
 
 OBJET = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Wall

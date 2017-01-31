@@ -38,7 +38,7 @@ char **affiche_dir(char **nom_f_d)
     return (nom_f_d);
 }
 
-int main(void)
+int main(int argc, char const *argv[])
 {
     char **nom_f_d;
     int nb_val;
@@ -47,6 +47,11 @@ int main(void)
     int max_nlink;
 
     index = 0;
+    if (argc > 2)
+        erreur_fichier();
+    if (argc == 2)
+        agv(argv[1]);
+
     nb_val = compt_dir();
 //    printf("nb: %d\n", nb_val);
     nom_f_d = (char**)malloc(sizeof(*nom_f_d) * nb_val);
@@ -57,11 +62,14 @@ int main(void)
     max_nlink = ft_max_nlink();
     ft_sum_block();
     ft_l(".", max_size, max_nlink);
+    printf(" %s\n", ".");
     ft_l("..", max_size, max_nlink);
+    printf(" %s\n", "..");
     index = 0;
     while (index != nb_val)
     {
         ft_l(nom_f_d[index], max_size, max_nlink);
+        printf(" %s\n", nom_f_d[index]);
         index++;
     }
     while (index != nb_val)

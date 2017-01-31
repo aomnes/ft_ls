@@ -6,9 +6,15 @@ void erreur(const char *message)
     exit(1);
 }
 
+void erreur_fichier(void)
+{
+    printf("Erreur: fichier non prit en compte\n");
+    exit(1);
+}
+
 void erreur_arg(char c)
 {
     printf("ls: illegal option -- %c\n", c);
-    printf("usage: ls [-lRart] [file ...]");
+    printf("usage: ls [-lRart] [file ...]\n");
     exit(1);
 }

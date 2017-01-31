@@ -21,7 +21,19 @@
 
 #include <ctype.h>
 
+typedef struct s_argument
+{
+    int arg_l;
+    int arg_R;
+    int arg_a;
+    int arg_r;
+    int arg_t;
+} s_argument;
+
 void erreur(const char *message);
+void erreur_fichier(void);
+void erreur_arg(char c);
+
 void ft_affiche_date(char *nom);
 void ft_affiche_size(int nombre, int max);
 void ft_affiche_nlink(int nombre, int max);
@@ -37,5 +49,7 @@ int ft_max_user(void);
 int compt_dir(void);
 void ft_sum_block(void);
 int	ft_strcmp(const char *s1, const char *s2);
+
+s_argument agv(const char *arg);
 
 #endif //HEADER_H
