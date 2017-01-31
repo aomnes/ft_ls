@@ -15,6 +15,6 @@ void erreur_fichier(void)
 void erreur_arg(char c)
 {
     printf("ls: illegal option -- %c\n", c);
-    printf("usage: ls [-lRart] [file ...]\n");
+    printf("usage: ls [-lRart]\n");
     exit(1);
 }

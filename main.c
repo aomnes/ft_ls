@@ -45,12 +45,13 @@ int main(int argc, char const *argv[])
     int index;
     int max_size;
     int max_nlink;
+    s_argument param;
 
     index = 0;
     if (argc > 2)
         erreur_fichier();
     if (argc == 2)
-        agv(argv[1]);
+        param = agv(argv[1]);
 
     nb_val = compt_dir();
 //    printf("nb: %d\n", nb_val);
@@ -60,18 +61,23 @@ int main(int argc, char const *argv[])
     nom_f_d = affiche_dir(nom_f_d);
     max_size = ft_max_size();
     max_nlink = ft_max_nlink();
-    ft_sum_block();
-    ft_l(".", max_size, max_nlink);
+    if (param.arg_l)
+        ft_sum_block();
+    if (param.arg_l)
+        ft_l(".", max_size, max_nlink);
     printf(" %s\n", ".");
-    ft_l("..", max_size, max_nlink);
+    if (param.arg_l)
+        ft_l("..", max_size, max_nlink);
     printf(" %s\n", "..");
     index = 0;
     while (index != nb_val)
     {
-        ft_l(nom_f_d[index], max_size, max_nlink);
+        if (param.arg_l)
+            ft_l(nom_f_d[index], max_size, max_nlink);
         printf(" %s\n", nom_f_d[index]);
         index++;
     }
+    index = 0;
     while (index != nb_val)
     {
         free(nom_f_d[index]);

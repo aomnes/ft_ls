@@ -8,8 +8,13 @@ s_argument agv(const char *arg)
 
     index = 1;
     c = '\0';
-    if (arg[0] != '-')
+    if (arg[0] != '-' || strlen(arg) == 1)
         erreur_fichier();
+    result.arg_l = FALSE;
+    result.arg_R = FALSE;
+    result.arg_a = FALSE;
+    result.arg_r = FALSE;
+    result.arg_t = FALSE;
     while (arg[index])
     {
         c = arg[index];
@@ -17,8 +22,6 @@ s_argument agv(const char *arg)
             erreur_arg(c);
         if (c == 'l')
             result.arg_l = TRUE;
-        else if (c == 'l')
-            result.arg_R = TRUE;
         else if (c == 'R')
             result.arg_R = TRUE;
         else if (c == 'a')
