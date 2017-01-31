@@ -41,6 +41,7 @@ void ft_affiche_groupe(char *groupe, int max);
 void ft_affiche_user(char *user, int max);
 void acl(char *filename);
 void ft_l(char *nom, int max, int max_nlink);
+s_argument agv(const char *arg, s_argument result);
 
 int ft_max_size(void);
 int ft_max_nlink(void);
@@ -49,7 +50,5 @@ int ft_max_user(void);
 int compt_dir(void);
 void ft_sum_block(void);
 int	ft_strcmp(const char *s1, const char *s2);
-
-s_argument agv(const char *arg);
 
 #endif //HEADER_H

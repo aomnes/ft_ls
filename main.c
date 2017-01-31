@@ -47,11 +47,16 @@ int main(int argc, char const *argv[])
     int max_nlink;
     s_argument param;
 
+    param.arg_l = FALSE;
+    param.arg_R = FALSE;
+    param.arg_a = FALSE;
+    param.arg_r = FALSE;
+    param.arg_t = FALSE;
     index = 0;
     if (argc > 2)
         erreur_fichier();
     if (argc == 2)
-        param = agv(argv[1]);
+        param = agv(argv[1], param);
 
     nb_val = compt_dir();
 //    printf("nb: %d\n", nb_val);
