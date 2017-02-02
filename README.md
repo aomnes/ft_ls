@@ -8,3 +8,4 @@
  `make`<br/>
  `make clean`<br/>
  `./ls.out`<br/>
+  `./ls.out -l`<br/>
